@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ExploraMundo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="shortcut icon" type="image/png" href="../assets/imagens/imagem aviao.png">
+   
+  <!-- CSS interno -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-image: url('../assets/imagens/trave1 (3).jpg'); 
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-color: #eef6f9; 
+      background-attachment: fixed; 
+      font-family: 'Segoe UI', sans-serif;
+    }
+  
+    .hero {
+      color: white;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+    }
+  
+    .filtro-container {
+      background-color: rgba(255, 255, 255, 0.9); /* Fundo semi-transparente para melhor contraste */
+      color: #333;
+      padding: 40px 20px;
+      border-radius: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+  
+    .form-control, .form-select {
+      border-radius: 12px;
+    }
+  
+    .form-label {
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #555;
+    }
+  
+    .btn-buscar {
+      background: linear-gradient(270deg, #30c4ff, #1da1f2, #30c4ff);
+      background-size: 600% 600%;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 50px;
+      padding: 10px 30px;
+      animation: gradientMove 6s ease infinite, pulse 2s infinite;
+      box-shadow: 0 0 15px #30c4ff, 0 0 30px #1da1f2 inset;
+      transition: all 0.3s ease;
+    }
+
+    .btn-buscar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #30c4ff, 0 0 50px #1da1f2 inset;
+    }
+
+    #catalogo, #depoimentos, #contato {
+        background-color: #ffffff; /* Fundo branco para as seções */
+        padding: 40px 20px; /* Adiciona um bom espaçamento interno */
+        border-radius: 10px; /* Arredondamento nas bordas (opcional) */
+        margin-bottom: 40px; /* Espaçamento inferior para separar as seções */
+    }
+    #depoimentos {
+        background-color: #333; /* Fundo escuro para a seção */
+        padding: 40px 20px;
+        border-radius: 10px; /* Arredondamento nas bordas da seção */
+        margin-bottom: 40px;
+    }
+
+    .blockquote {
+      background-color: #444; /* Fundo diferente para os depoimentos */
+      padding: 20px;
+      border-radius: 10px; /* Borda arredondada para os depoimentos */
+      margin: 0;
+    }
+
+/* Animação de pulsar */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 15px #30c4ff, 0 0 30px #1da1f2 inset;
+      }
+      50% {
+        box-shadow: 0 0 25px #30c4ff, 0 0 50px #1da1f2 inset;
+      }
+      100% {
+        box-shadow: 0 0 15px #30c4ff, 0 0 30px #1da1f2 inset;
+      }
+    }
+
+    /* Animação do gradiente */
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+     }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  
+    .info-links a {
+      color: #fff;
+      font-weight: 600;
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+  
+    .info-links a:hover {
+      text-decoration: underline;
+    }
+  
+    .section-title {
+      text-align: center;
+      margin-top: 60px;
+      margin-bottom: 40px;
+      font-weight: bold;
+    }
+  
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;  /* Faz as cartas se esticarem para preencher o espaço disponível */
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Garantir que a imagem da carta não distorça */
+    .card-img-top {
+        width: 100%;
+        object-fit: cover;  /* Faz a imagem cobrir completamente o espaço sem distorcer */
+        height: 200px;  /* Altura fixa para a imagem */
+    
+    }
+
+    /* Garantir que a descrição da carta se estenda corretamente */
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;  /* Faz o conteúdo crescer para preencher a altura da carta */
+    }
+
+    .card-title {
+        font-size: 1.2rem; /* Ajuste o tamanho do título se necessário */
+    }
+
+    .card-text {
+        font-size: 1rem; /* Ajuste o tamanho do texto conforme necessário */
+    }
+
+    .col {
+        display: flex;
+        justify-content: center; /* Centraliza os cartões */
+    }
+
+    .card:hover {
+        transform: scale(1.05); /* Deixa o efeito de hover de forma mais suave */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil ao passar o mouse */
+    }
+  </style>
+  
+
+  <!-- Navbar/Menu -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">ExploraMundo</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="#catalogo">Pacotes</a></li>
+          <li class="nav-item"><a class="nav-link" href="#depoimentos">Depoimentos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero d-flex align-items-center justify-content-center text-center" style="padding: 60px 20px; background: rgba(0,0,0,0.4);">
+    <div class="container">
+      <h1 class="display-5 text-white">Explore os melhores destinos com promoções exclusivas</h1>
+      <p class="lead text-white">Viagens de aventura, luxo, família e muito mais</p>
+    </div>
+  </section>
+
+  <!-- Hero + Filtro -->
+  <div class="hero">
+    <h1 class="text-black">Encontre seu próximo destino</h1>
+    <div class="filtro-container">
+      <form>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label text-body">Origem</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+              <input type="text" class="form-control" value="São Paulo, Brasil">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-body">Destino</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+              <input type="text" class="form-control" placeholder="Insira uma cidade">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-body">Ida</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+              <input type="date" class="form-control" id="data-ida">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-body">Volta</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
+              <input type="date" class="form-control" id="data-volta">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-body">Adultos</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="number" class="form-control" id="input-adultos" value="2" min="0">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-body">Crianças</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="number" class="form-control" id="input-criancas" value="1" min="0">
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-buscar mt-4"><i class="bi bi-search"></i> Buscar</button>
+      </form>
+    </div> <!-- Fecha filtro-container -->
+  </div>
+
+ <!-- Catálogo de Pacotes -->
+<section class="container my-5" id="catalogo">
+    <h2 class="mb-4 text-center">Pacotes de Viagem</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <button class="card" onclick="window.location.href='paris.html';">
+              <img src="../assets/imagens/paris.jpg" class="card-img-top" alt="Destino 1">
+              <div class="card-body">
+                <h5 class="card-title">Paris, França</h5>
+                <p class="card-text">4 dias com café da manhã e almoço - R$ 4.500</p>
+              </div>
+            </button>
+          </div>
+          
+          <div class="col">
+            <button class="card" onclick="window.location.href='toquio.html';">
+              <img src="../assets/imagens/toquio.jpg" class="card-img-top" alt="Destino 2">
+              <div class="card-body">
+                <h5 class="card-title">Tóquio, Japão</h5>
+                <p class="card-text">3 dias e 2 noites com café da manhã - R$ 6.500</p>
+              </div>
+            </button>
+          </div>
+          
+          <div class="col">
+            <button class="card" onclick="window.location.href='saopaulo.html';">
+              <img src="../assets/imagens/sp.jpg" class="card-img-top" alt="Destino 3">
+              <div class="card-body">
+                <h5 class="card-title">São Paulo, Brasil</h5>
+                <p class="card-text">13 dias com café da manhã e almoço - R$ 22.000</p>
+              </div>
+            </button>
+          </div>          
+        </div>
+      </div>
+    </div>
+  
+    <div class="text-center mt-4">
+      <a href="vermais.html" class="btn btn-outline-primary">Ver mais pacotes</a>
+    </div>
+  </section>
+  
+  <!-- Depoimentos -->
+  <section class="bg-dark py-5" id="depoimentos">
+    <div class="container">
+      <h2 class="mb-4 text-white text-center">O que nossos clientes dizem</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <blockquote class="blockquote text-white">
+            <p>"Foi a melhor viagem que já fiz! Atendimento excelente."</p>
+            <footer class="blockquote-footer">João Silva</footer>
+          </blockquote>
+        </div>
+        <div class="col-md-4">
+          <blockquote class="blockquote text-white">
+            <p>"Ótimos preços e destinos incríveis. Recomendo muito!"</p>
+            <footer class="blockquote-footer">Maria Oliveira</footer>
+          </blockquote>
+        </div>
+        <div class="col-md-4">
+          <blockquote class="blockquote text-white">
+            <p>"Melhor roteiro que já fiz até agora, sem contar o ótimo atendimento!"</p>
+            <footer class="blockquote-footer">Rebeca Fernandes</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contato -->
+  <section class="container my-5" id="contato">
+    <h2 class="mb-4 text-center">Entre em contato</h2>
+    <form>
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nome" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" class="form-control" id="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="mensagem" class="form-label">Comentário</label>
+        <textarea class="form-control" id="mensagem" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  
+    <div class="mt-5">
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/5511940028922" target="_blank">(11) 94002-8922</a></p>
+      <p><strong>Instagram:</strong> <a href="https://instagram.com/ExploraMundo" target="_blank">@ExploraMundo</a></p>
+  
+      <h5 class="mt-4">Nossa Localização</h5>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.968462376327!2d-46.69565372488952!3d-23.60546397876954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5732d2d3f7a9%3A0x96df201f11e10066!2sCondom%C3%ADnio%20Centro%20Empresarial%20Berrini!5e0!3m2!1spt-BR!2sbr!4v1745791281873!5m2!1spt-BR!2sbr"
+        width="100%" 
+        height="450" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>    
+    </div>
+  </section>
+  
+
+  <!-- Rodapé -->
+  <footer class="bg-dark text-white text-center py-3">
+    <p class="mb-0">&copy; 2025 ExploraMundo - Todos os direitos reservados</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS interno -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const adultosInput = document.getElementById("input-adultos");
+      const criancasInput = document.getElementById("input-criancas");
+      const dataIda = document.getElementById("data-ida");
+      const dataVolta = document.getElementById("data-volta");
+
+      function verificarAdultos() {
+        if (parseInt(adultosInput.value) < 1) {
+          criancasInput.disabled = true;
+          criancasInput.value = 0;
+        } else {
+          criancasInput.disabled = false;
+        }
+      }
+
+      adultosInput.addEventListener("input", verificarAdultos);
+      verificarAdultos();
+
+      dataIda.addEventListener("change", function () {
+        const idaValue = dataIda.value;
+        dataVolta.min = idaValue;
+        if (dataVolta.value && dataVolta.value < idaValue) {
+          dataVolta.value = "";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
